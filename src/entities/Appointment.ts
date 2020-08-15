@@ -5,7 +5,7 @@ import { uuid } from "uuidv4";
 @Entity()
 export class Appointment {
   @PrimaryColumn()
-  public readonly id: string;
+  public readonly id?: string;
 
   @Column()
   public date: Date;

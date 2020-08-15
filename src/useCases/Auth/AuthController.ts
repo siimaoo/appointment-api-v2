@@ -1,10 +1,17 @@
 import { Request, Response } from "express";
 import { MysqlUserRepository } from "../../repositories/implementations/MysqlUserRepository";
 import { compare } from 'bcryptjs';
+import Validators from "../../utils/Validators";
 
 class AuthController {
   async handle(req: Request, res: Response) {
     try {
+      const validateEmail:any = Validators.isEmpty(req.body.email, 'e-mail');
+      const validatePassword:any = Validators.isEmpty(req.body.password, 'senha');
+
+      if (validateEmail.message != undefined) throw new Error(validateEmail.message);
+      if (validatePassword != undefined) throw new Error(validatePassword.message);
+
       const userMethods = new MysqlUserRepository();
       const userExists = await userMethods.findByEmail(req.body.email);
 
