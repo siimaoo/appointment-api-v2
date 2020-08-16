@@ -2,6 +2,7 @@ import { User } from "../entities/User";
 import { Appointment } from "../entities/Appointment";
 
 export interface IUserRepository {
+  find(): Promise<Array<User> | undefined>;
   findById(id: string): Promise<User | undefined>;
   findByEmail(email: string): Promise<any | undefined>;
   findByCpf(cpf: string): Promise<any | undefined>;

@@ -5,16 +5,20 @@ import { sign } from 'jsonwebtoken';
 import { Appointment } from "../../entities/Appointment";
 
 export class MysqlUserRepository implements IUserRepository {
+  async find() {
+    return await getRepository(User).find();
+  }
+  
   async findById(id: string) {
-    return await getRepository(User).findOne({where: {id: id}, relations: ['appointments']});
+    return await getRepository(User).findOne({where: {id: id}});
   }
 
   async findByEmail(email: string) {
-    return await getRepository(User).find({where: {email}, relations: ['appointments'], select: ['id', 'email' ,'password']})
+    return await getRepository(User).find({where: {email}, select: ['id', 'email' ,'password']})
   }
 
   async findByCpf(cpf: string) {
-    return await getRepository(User).find({where: {cpf}, relations: ['appointments']})
+    return await getRepository(User).find({where: {cpf}})
   }
 
   async create(user: User) {

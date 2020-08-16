@@ -9,8 +9,8 @@ class AuthController {
       const validateEmail:any = Validators.isEmpty(req.body.email, 'e-mail');
       const validatePassword:any = Validators.isEmpty(req.body.password, 'senha');
 
-      if (validateEmail.message != undefined) throw new Error(validateEmail.message);
-      if (validatePassword != undefined) throw new Error(validatePassword.message);
+      if (validateEmail.message) throw new Error(validateEmail.message);
+      if (validatePassword) throw new Error(validatePassword.message);
 
       const userMethods = new MysqlUserRepository();
       const userExists = await userMethods.findByEmail(req.body.email);
@@ -28,6 +28,7 @@ class AuthController {
         token: token
       });
     } catch(err) {
+      console.log(err);
       return res.status(400).send({
         success: false,
         message: err.message || 'Erro inesperado!'

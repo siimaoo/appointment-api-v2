@@ -6,9 +6,13 @@ import CreateUserController from "./useCases/CreateUser/CreateUserController";
 import AuthController from "./useCases/Auth/AuthController";
 import AuthMiddlewareController from "./middleware/AuthMiddlewareController";
 import MakeAppointmentController from "./useCases/MakeAppointment/MakeAppointmentController";
+import ShowUserAppointmentsController from "./useCases/ShowUserAppointments/ShowUserAppointmentsController";
+import IndexUsersController from "./useCases/IndexUsers/IndexUsersController";
 
 const router = Router();
 
+router.get("/users", AuthMiddlewareController.onlyAdmin, IndexUsersController.handle);
+router.get("/user/:id/appointments", AuthMiddlewareController.handle, ShowUserAppointmentsController.handle);
 router.post("/user/:id/make-appointment", AuthMiddlewareController.handle, MakeAppointmentController.handle);
 router.post("/signup", CreateUserController.handle);
 router.post("/signin", AuthController.handle);

@@ -36,6 +36,9 @@ export class User {
   @Column()
   public birth_date: string;
 
+  @Column()
+  public rule: string;
+
   @OneToMany(type => Appointment, appointment => appointment.user)
   public appointments: Appointment[];
 
@@ -47,6 +50,7 @@ export class User {
 
   constructor(props: Omit<User, 'id'|'hashPassword'>, id?: string) {
     Object.assign(this, props);
+    this.rule = "client";
 
     if (!id) {
       this.id = uuid();
