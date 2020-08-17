@@ -8,9 +8,11 @@ import AuthMiddlewareController from "./middleware/AuthMiddlewareController";
 import MakeAppointmentController from "./useCases/MakeAppointment/MakeAppointmentController";
 import ShowUserAppointmentsController from "./useCases/ShowUserAppointments/ShowUserAppointmentsController";
 import IndexUsersController from "./useCases/IndexUsers/IndexUsersController";
+import IndexAppointmentController from "./useCases/IndexAppointment/IndexAppointmentController";
 
 const router = Router();
 
+router.get("/appointments", AuthMiddlewareController.onlyAdmin, IndexAppointmentController.handle);
 router.get("/users", AuthMiddlewareController.onlyAdmin, IndexUsersController.handle);
 router.get("/user/:id/appointments", AuthMiddlewareController.handle, ShowUserAppointmentsController.handle);
 router.post("/user/:id/make-appointment", AuthMiddlewareController.handle, MakeAppointmentController.handle);

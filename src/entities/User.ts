@@ -34,7 +34,7 @@ export class User {
   public password: string;
 
   @Column()
-  public birth_date: string;
+  public birth_date: Date;
 
   @Column()
   public rule: string;

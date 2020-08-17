@@ -3,14 +3,14 @@ import { getRepository } from "typeorm";
 
 export class MysqlAppointmentRepository {
   async findByDate(date: Date): Promise<Array<Appointment> | undefined> {
-    const appointment = await getRepository(Appointment).find({where: {date}});
-
-    return appointment;
+    return await getRepository(Appointment).find({where: {date}});
   }
 
   async findByUserID(id: string): Promise<Array<Appointment> | undefined> {
-    const appointment = await getRepository(Appointment).find({where: {user: id}});
+    return await getRepository(Appointment).find({where: {user: id}});
+  }
 
-    return appointment;
+  async find(): Promise<Array<Appointment> | undefined> {
+    return await getRepository(Appointment).find({relations: ['user']});
   }
 }
