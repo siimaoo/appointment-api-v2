@@ -33,8 +33,8 @@ export class MysqlUserRepository implements IUserRepository {
     await getRepository(User).delete({id});
   }
 
-  createToken(id: string) {
-    return sign({id}, process.env.SECRET as string, {
+  createToken(id: string, emailIsVerified: boolean) {
+    return sign({id, emailIsVerified}, process.env.SECRET as string, {
       expiresIn: '7d'
     });
   }

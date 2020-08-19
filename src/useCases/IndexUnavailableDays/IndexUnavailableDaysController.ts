@@ -7,10 +7,24 @@ class IndexUnavailableDays {
       const appointmentMethods = new MysqlAppointmentRepository();
 
       const appointments = await appointmentMethods.find();
-      const unavailableDays = [];
+      const unavailableDays = {};
   
       appointments.map(appointment => {
-        unavailableDays.push(appointment.date);
+        const date = new Date(appointment.date); 
+        const dateString = date.toDateString();
+
+        if (date.getTime() >= new Date().getTime()) {
+          if (unavailableDays[dateString] != undefined) {
+            unavailableDays[dateString].push(appointment.date.toTimeString());
+          } else {
+            unavailableDays[dateString] = [appointment.date.toTimeString()];
+          }
+        }
+      });
+
+      return res.status(200).send({
+        success: true,
+        data: unavailableDays
       });
     } catch(err) {
       return res.status(400).send({

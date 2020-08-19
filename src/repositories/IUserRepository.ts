@@ -9,6 +9,6 @@ export interface IUserRepository {
   create(user: User): Promise<User>;
   update(id: string, user: User | object): Promise<void>;
   delete(id: string): Promise<void>;
-  createToken(id: string): string;
+  createToken(id: string, emailIsVerified: boolean): string;
   makeAppointment(data: Appointment): Promise<void>;
 }

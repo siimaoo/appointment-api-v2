@@ -9,9 +9,11 @@ import MakeAppointmentController from "./useCases/MakeAppointment/MakeAppointmen
 import ShowUserAppointmentsController from "./useCases/ShowUserAppointments/ShowUserAppointmentsController";
 import IndexUsersController from "./useCases/IndexUsers/IndexUsersController";
 import IndexAppointmentController from "./useCases/IndexAppointment/IndexAppointmentController";
+import IndexUnavailableDaysController from "./useCases/IndexUnavailableDays/IndexUnavailableDaysController";
 
 const router = Router();
 
+router.get("/appointments/unavailable-days", IndexUnavailableDaysController.handle);
 router.get("/appointments", AuthMiddlewareController.onlyAdmin, IndexAppointmentController.handle);
 router.get("/users", AuthMiddlewareController.onlyAdmin, IndexUsersController.handle);
 router.get("/user/:id/appointments", AuthMiddlewareController.handle, ShowUserAppointmentsController.handle);

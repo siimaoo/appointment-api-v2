@@ -9,7 +9,7 @@ class AuthMiddleware {
       if (err) throw new Error('Falha ao validar token de segurança!');
       const userMethods = new MysqlUserRepository();
       const user = await userMethods.findById(decoded.id);
-      return {authetincated: true, rule: user.rule, id: decoded.id} 
+      return {authetincated: true, rule: user.rule, id: decoded.id, emailIsVerified: decoded.emailIsVerified} 
     });
 
     this.validateToken = verifiedToken;

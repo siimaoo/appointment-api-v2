@@ -9,6 +9,8 @@ class AuthMiddlewareController {
 
       const validateAuth = await AuthMiddleware.execute(token);
 
+      if (!validateAuth.emailIsVerified) return res.status(200).redirect('/validate-email');
+
       if (validateAuth.rule == 'Admin') return next();
 
       if ( id == validateAuth.id) return next();

@@ -39,6 +39,13 @@ class MakeAppointmentController {
         throw new Error("Consultas disponiveis apenas as quartas!");
       if (!schedules.includes(`${date.getHours()}:${date.getMinutes()}`))
         throw new Error("Horario invalido!");
+      
+      const today = new Date();
+      const from = date.getTime();
+      const to = new Date(today.getFullYear(), today.getMonth() + 3, today.getDate()).getTime();
+
+      if (today.getTime() > from || from > to)
+        throw new Error("Data deve estar no futuro e tem que ser menor que 3 meses");
 
       const appointments = await appointmentMethods.findByDate(date);
 

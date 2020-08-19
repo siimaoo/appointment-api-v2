@@ -21,6 +21,9 @@ export class User {
   @Column({ unique: true })
   public email: string;
 
+  @Column()
+  public emailIsVerified: boolean;
+
   @Column({ unique: true })
   public cpf: string;
 
